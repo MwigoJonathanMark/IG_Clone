@@ -20,6 +20,7 @@
     <body>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
+                <img class="" src="">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'InstaGramClone') }}
                 </a>
