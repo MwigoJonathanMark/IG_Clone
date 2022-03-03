@@ -13,13 +13,13 @@
                         @csrf
                         @method('PATCH')
 
-                        <img id="profilePreview" src="/images/userProfile.jpg" alt="Profile here" class="card-img card-img-top img-fluid rounded w-100 h-100 pb-2">
+                        <img id="profilePreview" src="{{ $user->profile->profileImage() }}" alt="Profile here" class="card-img card-img-top img-fluid rounded w-100 h-100 pb-2">
 
                         <div class="row mb-3 justify-content-center">
                             <div class="col-md-6">
-                                <input id="profileImage" type="file" class="form-control @error('profileImage') is-invalid @enderror" name="profileImage" value="{{ old('profileImage') ?? $user->profile->profileImage }}" required autocomplete="profileImage" onchange="getImage()">
+                                <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image" value="{{ old('image') }}" autocomplete="image" onchange="getImage()">
 
-                                @error('profileImage')
+                                @error('image')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -91,7 +91,7 @@
 @endsection
 @section('scripts'){{-- 
 function getImage() {
-    var file = document.getElementById('profileImage').value;
+    var file = document.getElementById('image').value;
     document.getElementById('profilePreview').src = file
 } --}}
 @endsection

@@ -4,19 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Auth\Access\Response;
+use Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
 {
-    public function index($user)
+    public function index(User $user)
     {
-        // $user = User::find($user);
-        $user = User::findOrFail($user);
-        return view(
-            'profiles.index', [
-                'user' => $user,
-            ]
-        );
+        return view('profiles.index', compact('user'));
     }
 
     public function edit(User $user)
@@ -31,14 +25,19 @@ class ProfileController extends Controller
         $this->authorize('update', $user->profile);
 
         $data = request()->validate([
-            'image' => 'image',
             'title' => 'required',
             'description' => 'required',
-            'url' => 'url',php
+            'url' => 'url',
+            'image' => 'image',
         ]);
 
-        auth()->user()->profile->update($data);
+        if (request('image')) {
+            $imagePath = request('image')->store('profiles', 'public');
+            $image = Image::make(public_path("storage/{$imagePath}"))->fit(1000, 1000)->save();
+        }
 
-        return redirect("/profile/$user->id");
+        auth()->user()->profile->update(array_merge($data, ['image' => $imagePath]));
+
+        return redirect("/profile/{$user->id}");
     }
 }
