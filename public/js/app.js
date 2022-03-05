@@ -5387,6 +5387,10 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/follow/' + this.userId).then(function (response) {
         _this.status = !_this.status;
         console.log(response.data);
+      })["catch"](function (errors) {
+        if (errors.response.status == 401) {
+          window.location = '/login';
+        }
       });
     }
   },
@@ -5433,6 +5437,10 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/follow/' + this.userId).then(function (response) {
         _this.status = !_this.status;
         console.log(response.data);
+      })["catch"](function (errors) {
+        if (errors.response.status == 401) {
+          window.location = '/login';
+        }
       });
     }
   },
@@ -28125,7 +28133,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { attrs: { id: "app" } }, [
     _c("button", {
       staticClass: "btn btn-primary ms-4",
       domProps: { textContent: _vm._s(_vm.buttonText) },
@@ -28156,7 +28164,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { attrs: { id: "app" } }, [
     _c(
       "a",
       {

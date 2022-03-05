@@ -18,20 +18,20 @@
                     </div>
                 </div>
 
-                @can('update', $user->profile)
+                @can ('update', $user->profile)
                     <a class="btn btn-outline-primary" href="/p/create">Add New Post</a>
                 @endcan
 
             </div>
 
-            @can('update', $user->profile)
+            @can ('update', $user->profile)
                 <a class="btn" href="/profile/{{ $user->id }}/edit">Edit Profile</a>
             @endcan
             
             <div class="d-flex">
                 <div class="pe-5"><b>{{ $user->posts->count() }}</b> Posts</div>
-                <div class="pe-5"><b>150</b> Followers</div>
-                <div class="p4-5"><b>150</b> Following</div>
+                <div class="pe-5"><b>{{ $user->profile->followers->count() }}</b> Followers</div>
+                <div class="p4-5"><b>{{ $user->following->count() }}</b> Following</div>
             </div>
             <div class="pt-4"><b>{{ $user->profile->title }}</b></div>
             <div>{{ $user->profile->description ?? 'Your profile description...' }}</div>
@@ -39,7 +39,7 @@
         </div>
     </div>
     <div class="row pt-5">
-        @foreach($user->posts as $post)
+        @foreach ($user->posts as $post)
             <div class="col-sm-12 col-md-4">
                 <a href="/p/{{ $post->id }}">
                     <img src="/storage/{{ $post->image }}" class="w-100 h-100 pb-3">

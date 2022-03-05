@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="app">
         <button class="btn btn-primary ms-4" @click="followUser" v-text="buttonText"></button>
     </div>
 </template>
@@ -24,6 +24,11 @@
                 .then(response => {
                     this.status = !this.status;
                     console.log(response.data);
+                })
+                .catch(errors => {
+                    if(errors.response.status == 401){
+                        window.location = '/login';
+                    }
                 });
             }
         },
