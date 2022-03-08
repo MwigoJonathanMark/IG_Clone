@@ -13,9 +13,14 @@
                     <div class="me-2">
                         <h4>{{ $user->username }}</h4>
                     </div>
-                    <div class="ms-2">
-                        <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>
-                    </div>
+
+                    @can ('update', $user->profile)
+                        <div class="ms-2"></div>
+                    @else
+                        <div class="ms-2">
+                            <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>
+                        </div>
+                    @endcan
                 </div>
 
                 @can ('update', $user->profile)
@@ -29,9 +34,9 @@
             @endcan
             
             <div class="d-flex">
-                <div class="pe-5"><b>{{ $user->posts->count() }}</b> Posts</div>
-                <div class="pe-5"><b>{{ $user->profile->followers->count() }}</b> Followers</div>
-                <div class="p4-5"><b>{{ $user->following->count() }}</b> Following</div>
+                <div class="pe-5"><b>{{ $postsCount }}</b> Posts</div>
+                <div class="pe-5"><b>{{ $followersCount }}</b> Followers</div>
+                <div class="p4-5"><b>{{ $followingCount }}</b> Following</div>
             </div>
             <div class="pt-4"><b>{{ $user->profile->title }}</b></div>
             <div>{{ $user->profile->description ?? 'Your profile description...' }}</div>

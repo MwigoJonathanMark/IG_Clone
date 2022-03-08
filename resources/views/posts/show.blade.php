@@ -17,10 +17,14 @@
                         <div>
                             <a style="text-decoration: none;" href="/profile/{{ $post->user->id }}" class="fw-bold link-dark">{{ $post->user->username }}</a href="/profile/{{ $post->user->id }}">
                         </div>
-                        <svg class="text-center" width="20" height="20">
-                            <circle cx="10" cy="10" r="2"/>
-                        </svg>
-                        <follow-link user-id="{{ $post->user->id }}" follows="{{ $follows }}"></follow-link>
+                        @can ('update', $post->user->profile)
+                            <div></div>
+                        @else
+                            <svg class="text-center" width="20" height="20">
+                                <circle cx="10" cy="10" r="2"/>
+                            </svg>
+                            <follow-link user-id="{{ $post->user->id }}" follows="{{ $follows }}"></follow-link>
+                        @endcan
                     </div>
                     <hr>
                     <p><a style="text-decoration: none;" href="/profile/{{ $post->user->id }}" class="fw-bold link-dark">{{ $post->user->username }}</a> {{ $post->caption }}</p>
